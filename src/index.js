@@ -1,31 +1,53 @@
 class Sorter {
   constructor() {
-    // your implementation
+    this._store=[];
+    this._comparator;
+
   }
 
   add(element) {
-    // your implementation
+   this._store.push(element);
   }
 
   at(index) {
-    // your implementation
+   return  this._store[index];
   }
 
   get length() {
-    // your implementation
+   return this._store.length;
   }
 
   toArray() {
-    // your implementation
+   return this._store;
   }
 
   sort(indices) {
-    // your implementation
-  }
+    indices.sort(defaultComparer);
+    let subArray=[];
+
+    for(let i in indices){
+        subArray.push(this._store[indices[i]]);
+      }
+
+    if(!this._comparator){
+        subArray.sort(defaultComparer)
+    }else{
+        subArray.sort(this._comparator);
+        }
+
+    for(let i in indices){
+        this._store[indices[i]]=subArray[i];
+        }
+    }
 
   setComparator(compareFunction) {
-    // your implementation
+      this._comparator=compareFunction;
   }
 }
-
+function defaultComparer(num1,num2){
+  switch(true){
+      case num1>num2:return 1;
+      case num1<num2:return -1;
+  }
+}
 module.exports = Sorter;
